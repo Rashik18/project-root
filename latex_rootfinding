@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{\textbf{Comparative Study of Newton's and Secant
+Methods of Root- Finding Problems}}
+\author{Mohammad Rashik Zaman &  Md Ashraful Alam Gazi} 
+
+\date{December 2018}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\begin{document}
+\maketitle
+\section*{Abstract}
+This paper represents comparative analysis between two most popular root finding Newton's method and Secant method. For simplicity, only real roots are used and also python software to compare two methods through number of iteration needed for different initial value in different methods. Furthermore, we created loop of different initial guess $[-20,+20]$ as main input to study how the initial guess behave with roots. In most of the cases we found that the initial guess usually chooses the nearest roots.
+
+\section{Introduction}
+Root finding problem is a problem of finding a root of the equation $f(x)=0$ where $f(x)$ is a
+function of a single variable, $x$ . Let $f(x)$ be a function, we are interested in finding $x=\xi$ such
+that $f(\xi)=0$. The number $\xi$ is called the root or zero of $f(x)$.
+The root-finding problem is one of the most important computational problems. It arises in
+a wide variety of practical applications in physics, chemistry, bio sciences, engineering,
+etc. As a matter of fact, determination of any unknown appearing implicitly in scientific
+or engineering formulas, gives rise to a root-finding problem. Newton's method and Secant method are greatly used to find the roots of a polynomial equation. Two polynomial equation has been included. One quadratic $(x^2-5x-6)$ and another one is cubic $(x^3-8x^2-3x+90)$ whose roots are $\{-1,6\}$ and $\{-3,5,6\}$ respectively.  
+
+\section{Newton's Method}
+Newton’s Method, also referred to as the Newton-Raphson Iteration Technique. Newton-Raphson method finds the slope (tangent line) of the function at the current point and uses the zero of the tangent line as the next reference point. The process is repeated until the root is found. The basic idea is that if $x_0$ is an approximation to the root, $x$ root , of the equation $f(x) = 0$, then a closer approximation will be given by $x_1$ where the tangent to the graph at $x = x_0$ cuts the X-axis at $x = x_1$ as shown in Figure 1.
+
+\includegraphics[width=\textwidth]{figure 1.png}
+\begin{center}
+    \textbf{Figure-1}
+    Newton's method for finding root
+\end{center}
+
+Using the definition of derivative at $x = x_0$
+\begin{center}
+    $f'(x_0) = \displaystyle{\frac{f(x_0)}{x_0 - x_1}}$ \bigskip
+    
+     $(x_0 - x_1)f'(x_0) = f(x_0)$ \bigskip
+    
+    $(x_0 - x_1) = \displaystyle{\frac{f(x_0)}{f'(x_0)}}$   \bigskip
+    
+    $x_1 = x_0 - \displaystyle{\frac{f(x_0)}{f'(x_0)}}$
+
+\end{center}
+In general we can write
+\begin{center}
+    $x_{k+1} = x_k
+    -\displaystyle{\frac{f(x_k)}{f'(x_k)}}$ 
+where $k= 0, 1 , 2 ,...$ called the Newton-Raphson method.
+
+\end{center}
+
+\section{Algorithm of Newton's Method}
+\textbf{Input:}
+\begin{enumerate}
+    \item $f(x)$ - The given function
+    \item $x_0$  - The initial approximation
+    \item $\epsilon$ - The error tolerance
+    \item N - The maximum number of iterations
+\end{enumerate}
+\textbf{Output:}
+\begin{enumerate}
+    \item An approximation to the root $x=\xi$
+    \item or an error message 
+\end{enumerate}
+\textbf{Assumption:}
+
+$x=\xi$ is a simple root of $f(x)$.
+For $k =0,1,2,....$ do until convergence or failure.
+\begin{itemize}
+    
+    \item  Compute $f(x_k), f'(x_k)$
+    \item  Compute $x_{k+1} = x_k$
+    \item  Test for convergence of failure: 
+If
+$f(x_k)<\xi$ 
+or $\frac{|x_{k+1}-x_k|}{|x_k|}$ $<\xi$
+or $k>N$, 
+or $f'=0$ stop.
+\end{itemize}
+
+\section{Secant Method}
+There are some functions which are extremely difficult to differentiate. This is the main setback of Newton's method. This problem can be solved if we approximate the derivative by
+knowing the values of the function at that and the previous approximation. Thus the way out of this Knowing $f(x_k)$
+and $f(x_{k-1})$, we can approximate $f'(x_k)$ as:
+\begin{center}
+    $f'(x_k) \approx \displaystyle{\frac{f(x_k) - f(x_{k-1})}{x_k - x_{k-1}}}$
+\end{center}
+Then, the Newton iterations in this case become:
+\begin{center}
+    $x_{k+1}= x_k - \displaystyle{\frac{f(x_k)
+ }{f'(x_k)}}$ \bigskip
+ 
+     $\approx x_k - \displaystyle{\frac{f(x_k)(x_k - x_{k-1})}{f(x_k) - f(x_{k-1})}}$
+ 
+\end{center}
+
+This consideration leads to the Secant method.
+
+\section{Algorithm of Secant Method}
+\textbf{Input}
+\begin{enumerate}
+    \item $f(x)$- The given function
+    \item $x_0; x_1$ - The two initial approximations of the root
+    \item $\epsilon$ - the error tolerance
+    \item $N$ The maximum number of iterations
+\end{enumerate}
+
+\textbf{Output}
+\begin{enumerate}
+    \item An approximation of the exact solution $\xi$ . 
+    \item or a message of failure.
+\end{enumerate}
+\textbf{Assumption}
+For $k= 1; 2;......$
+\begin{itemize}
+    \item Compute $f(x_k)$ and $f(x_{k-1})$
+    \item compute the next approximation $x_{k+1}=x_k-\displaystyle{\frac{f(x_k)(x_k-x_{k-1})}{f(x_k)-f(x_{k-1})}}$
+    \item Test the convergence or maximum number of iterations: if $|x_k-x_{k+1}|<\epsilon$ or if $k>N,$
+    Stop
+\end{itemize}
+The Secant method needs two approximation wheres as Newton's method needs one approximation only
+
+\section{Result and Discussion}
+
+
+
+\section*{Reference}
+\begin{enumerate}
+    \item Wikipedia, the free Encyclopedia
+    \item \href{http://www.math.niu.edu/~dattab/math435.2009/ROOT-FINDING.pdf}{Numerical Solution of Root−Finding Problems by Professor Biswa Nath Datta Department of Mathematical Sciences Northern Illinois University }
+    \item \url{http://www.math.niu.edu/~dattab/MATH435.2013/ROOT_FINDING.pdf}
+    \item Comparative Study of Bisection, Newton-Raphson and Secant
+Methods of Root- Finding Problems
+Ehiwario, J.C., Aghamie, S.O.
+Department of Mathematics, College of Education, Agbor, Delta State.
+    \item \href{https://www.mav.vic.edu.au/files/2017/MAV17-Conference/MAV17_presentations/Bisection__Newtons_Method_MM_MAV_CD_8.6.2016.pdf}{Numerical approximation of roots of simple polynomial functions using the Bisection Method and Numerical approximation of roots of cubic polynomial functions using Newton’s Method by Brian Stokes, Teaching Associate, School of Mathematical Sciences, Monash University 
+    }
+\end{enumerate}
+
+\end{document}
